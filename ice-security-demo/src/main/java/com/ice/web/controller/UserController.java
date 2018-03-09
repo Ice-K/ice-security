@@ -2,6 +2,8 @@ package com.ice.web.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ice.dto.User;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.security.oauth2.client.resource.UserRedirectRequiredException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ public class UserController {
 
     @PostMapping
     @JsonView(User.UserDiteleView.class)
+    @ApiOperation(value= "用户查询服务")
     public User createUser(@RequestBody @Valid User user, BindingResult error) {
         if (error.hasErrors()) {
             error.getAllErrors().forEach(err -> System.out.println(err.getDefaultMessage()));
@@ -32,7 +35,7 @@ public class UserController {
 
     @GetMapping
     @JsonView(User.UserSimpleView.class)
-    public List<User> query() {
+    public List<User> query(User uer) {
         List<User> list = new ArrayList<>();
         list.add(new User());
         list.add(new User());
@@ -44,6 +47,7 @@ public class UserController {
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserSimpleView.class)
     public User getUserInfo(@PathVariable Integer id) {
+
         User user = new User();
         user.setId(1);
         user.setUsername("admin");

@@ -2,6 +2,7 @@ package com.ice.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ice.validator.MyConstraint;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Past;
@@ -19,6 +20,7 @@ public class User implements Serializable{
     public interface UserDiteleView extends UserSimpleView {}
 
     private static final long serialVersionUID = -8760691790128097097L;
+    @ApiModelProperty()
     private Integer id;
     @NotBlank(message = "用户名不能为空")
     private String username;
