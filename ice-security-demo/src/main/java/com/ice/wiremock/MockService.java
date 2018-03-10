@@ -26,7 +26,7 @@ public class MockService {
 
     private static void mock(String url, String file) throws IOException {
 
-        ClassPathResource resource = new ClassPathResource("moceresponse/"+ file +".txt");
+        ClassPathResource resource = new ClassPathResource("mock/response/"+ file +".txt");
         String content = StringUtils.join(FileUtils.readLines(resource.getFile(),"UTF-8").toArray(),"\n");
         stubFor(get(urlPathEqualTo(url))
                 .willReturn(aResponse().withBody(content)

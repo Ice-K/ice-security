@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * Description:
+ * Description: 处理用户获取逻辑
  * Cteated by wangpeng
  * 2018/3/10 13:22
  */

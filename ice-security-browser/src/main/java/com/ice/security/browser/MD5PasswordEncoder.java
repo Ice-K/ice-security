@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Description:自定义MD5密码加密及校验
+ * Description:处理密码加密校验
  * Cteated by wangpeng
  * 2018/3/10 13:51
  */

@@ -44,6 +44,12 @@
             <artifactId>spring-social-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- commons工具包 -->
         <dependency>
             <groupId>commons-lang</groupId><!-- 字符串操作 -->
