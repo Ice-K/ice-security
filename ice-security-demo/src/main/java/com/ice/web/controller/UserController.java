@@ -3,7 +3,7 @@ package com.ice.web.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ice.dto.User;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.oauth2.client.resource.UserRedirectRequiredException;
+import io.swagger.annotations.ApiParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping
     @JsonView(User.UserDiteleView.class)
-    @ApiOperation(value= "用户查询服务")
+    @ApiOperation(value= "用户查询服务")//用于swagger方法说明
     public User createUser(@RequestBody @Valid User user, BindingResult error) {
         if (error.hasErrors()) {
             error.getAllErrors().forEach(err -> System.out.println(err.getDefaultMessage()));
@@ -46,7 +46,7 @@ public class UserController {
 
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserSimpleView.class)
-    public User getUserInfo(@PathVariable Integer id) {
+    public User getUserInfo(@ApiParam(value = "用户id") @PathVariable Integer id) {
 
         User user = new User();
         user.setId(1);

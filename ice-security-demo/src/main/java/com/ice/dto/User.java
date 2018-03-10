@@ -20,7 +20,7 @@ public class User implements Serializable{
     public interface UserDiteleView extends UserSimpleView {}
 
     private static final long serialVersionUID = -8760691790128097097L;
-    @ApiModelProperty()
+    @ApiModelProperty(value = "用户id")//用户实体中字段说明
     private Integer id;
     @NotBlank(message = "用户名不能为空")
     private String username;
