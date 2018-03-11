@@ -30,6 +30,15 @@ public class ImageCode implements Serializable{
         this.expireTime = expireTime;
     }
 
+
+    /**
+     * 验证是否过期
+     * @return boolean
+     */
+    public boolean isExpried() {
+        return LocalDateTime.now().isAfter(expireTime);
+    }
+
     public BufferedImage getImage() {
         return image;
     }
