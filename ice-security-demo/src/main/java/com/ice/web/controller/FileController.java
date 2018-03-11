@@ -34,6 +34,12 @@ public class FileController {
     }
 
 
+    /**
+     * 下载
+     * @param id
+     * @param request
+     * @param response
+     */
     @GetMapping("/{id}")
     public void download(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
         try (
