@@ -1,6 +1,7 @@
 package com.ice.security.core.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
  * Description: Security安全框架属性配置
@@ -11,6 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SecurityProperties {
 
     /** 浏览器属性配置 */
+    @NestedConfigurationProperty
     private BrowserProperties browser = new BrowserProperties();
 
 

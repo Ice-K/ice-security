@@ -1,14 +1,11 @@
 package com.ice.security.core.properties;
 
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 /**
  * Description:browserSecurity属性配置文件
  * Cteated by wangpeng
  * 2018/3/10 21:59
  */
-@ConfigurationProperties(prefix = "ice.security.browser")
 public class BrowserProperties {
 
     /** 标准登录页. */
