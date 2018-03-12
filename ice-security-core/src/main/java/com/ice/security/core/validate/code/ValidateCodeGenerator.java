@@ -1,6 +1,5 @@
-package com.ice.security.core.validate;
+package com.ice.security.core.validate.code;
 
-import com.ice.security.core.validate.code.ImageCode;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
@@ -10,5 +9,5 @@ import org.springframework.web.context.request.ServletWebRequest;
  */
 public interface ValidateCodeGenerator {
 
-    ImageCode generator(ServletWebRequest request);
+    ValidateCode generator(ServletWebRequest request);
 }

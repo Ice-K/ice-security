@@ -2,6 +2,8 @@ package com.ice.security.core.properties;
 
 import com.ice.security.core.properties.borwser.BrowserProperties;
 import com.ice.security.core.properties.validatecode.ImageCodeProperties;
+import com.ice.security.core.properties.validatecode.SmsCodeProperties;
+import com.ice.security.core.validate.sms.SmsCodeSender;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -17,15 +19,28 @@ public class SecurityProperties {
     @NestedConfigurationProperty
     private BrowserProperties browser = new BrowserProperties();
 
+    /** 图片验证码属性配置 */
     @NestedConfigurationProperty
-    private ImageCodeProperties codeImage = new ImageCodeProperties();
+    private ImageCodeProperties imageCode = new ImageCodeProperties();
 
-    public ImageCodeProperties getCodeImage() {
-        return codeImage;
+
+    private SmsCodeProperties smsCode = new SmsCodeProperties();
+
+
+    public ImageCodeProperties getImageCode() {
+        return imageCode;
     }
 
-    public void setCodeImage(ImageCodeProperties codeImage) {
-        this.codeImage = codeImage;
+    public void setImageCode(ImageCodeProperties imageCode) {
+        this.imageCode = imageCode;
+    }
+
+    public SmsCodeProperties getSmsCode() {
+        return smsCode;
+    }
+
+    public void setSmsCode(SmsCodeProperties smsCode) {
+        this.smsCode = smsCode;
     }
 
     public BrowserProperties getBrowser() {

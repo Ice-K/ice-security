@@ -17,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.file.PathMatcher;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -97,7 +96,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         //session中的验证码对象
         ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(servletWebRequest,ValidateCodeController.SESSION_KEY);
         //用户输入的验证码字符串
-        String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(),"imagecode");
+        String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(),"imageCode");
 
         if (StringUtils.isBlank(codeInRequest)) {//如果请求中的验证码为空
             throw new ValidateCodeException("请输入验证码");

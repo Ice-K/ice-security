@@ -1,7 +1,6 @@
-package com.ice.security.core.validate;
+package com.ice.security.core.validate.code;
 
 import com.ice.security.core.properties.SecurityProperties;
-import com.ice.security.core.validate.code.ImageCode;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
