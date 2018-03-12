@@ -1,7 +1,8 @@
 package com.ice.security.browser.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ice.security.core.properties.LoginType;
+import com.ice.security.browser.support.SimpleResponse;
+import com.ice.security.core.properties.borwser.LoginType;
 import com.ice.security.core.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class IceAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
         if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());//500错误
             httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write(objectMapper.writeValueAsString(authenticationException));
+            httpServletResponse.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(authenticationException.getMessage())));
         } else {
             super.onAuthenticationFailure(httpServletRequest, httpServletResponse, authenticationException);
         }

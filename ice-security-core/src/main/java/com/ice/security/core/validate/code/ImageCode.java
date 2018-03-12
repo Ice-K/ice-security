@@ -13,8 +13,13 @@ public class ImageCode implements Serializable{
 
     private static final long serialVersionUID = -1018268752607908812L;
 
+    /** 验证码图片. */
     private BufferedImage image;
+
+    /** 验证码字符串. */
     private String code;
+
+    /** 验证码有效时间单位（秒）. */
     private LocalDateTime expireTime;
 
     public ImageCode(BufferedImage image, String code, int expireIn) {

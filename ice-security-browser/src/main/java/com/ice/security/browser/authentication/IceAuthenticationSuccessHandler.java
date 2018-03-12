@@ -1,7 +1,7 @@
 package com.ice.security.browser.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ice.security.core.properties.LoginType;
+import com.ice.security.core.properties.borwser.LoginType;
 import com.ice.security.core.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

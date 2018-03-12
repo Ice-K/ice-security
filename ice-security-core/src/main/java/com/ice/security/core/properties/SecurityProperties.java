@@ -1,5 +1,7 @@
 package com.ice.security.core.properties;
 
+import com.ice.security.core.properties.borwser.BrowserProperties;
+import com.ice.security.core.properties.validatecode.ImageCodeProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -15,6 +17,16 @@ public class SecurityProperties {
     @NestedConfigurationProperty
     private BrowserProperties browser = new BrowserProperties();
 
+    @NestedConfigurationProperty
+    private ImageCodeProperties codeImage = new ImageCodeProperties();
+
+    public ImageCodeProperties getCodeImage() {
+        return codeImage;
+    }
+
+    public void setCodeImage(ImageCodeProperties codeImage) {
+        this.codeImage = codeImage;
+    }
 
     public BrowserProperties getBrowser() {
         return browser;

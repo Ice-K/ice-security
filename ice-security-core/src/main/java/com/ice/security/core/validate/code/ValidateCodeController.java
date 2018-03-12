@@ -1,7 +1,6 @@
 package com.ice.security.core.validate.code;
 
-import com.ice.security.core.properties.SecurityProperties;
-import com.ice.security.core.validate.util.ValidateCodeUtils;
+import com.ice.security.core.validate.ValidateCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -22,20 +21,17 @@ import java.io.IOException;
 @RestController
 public class ValidateCodeController {
 
-    @Autowired
-    private SecurityProperties securityProperties;
-
-    private static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
-
+    protected static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+
+
+    @Autowired
+    private ValidateCodeGenerator imageCodeGenerator;
+
 
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ImageCode imageCode = ValidateCodeUtils.createImage(
-                securityProperties.getBrowser().getValidCodeWidth(),
-                securityProperties.getBrowser().getValidCodeHeight(),
-                securityProperties.getBrowser().getValidCodeLength(),
-                securityProperties.getBrowser().getValidTime());
+        ImageCode imageCode = imageCodeGenerator.generator(new ServletWebRequest(request));
         sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
         ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
     }

@@ -1,7 +1,7 @@
 package com.ice.security.browser.support;
 
 /**
- * Description: 封装BrowserSecurityController放回的数据
+ * Description: 封装BrowserSecurityController返回的数据
  * Cteated by wangpeng
  * 2018/3/10 21:35
  */

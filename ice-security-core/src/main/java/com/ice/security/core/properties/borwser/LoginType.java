@@ -1,4 +1,4 @@
-package com.ice.security.core.properties;
+package com.ice.security.core.properties.borwser;
 
 /**
  * Description:登录类型枚举，用来配置认证结果的返回（json数据或者跳转）
