@@ -1,6 +1,7 @@
 package com.ice.security.core.properties;
 
 import com.ice.security.core.properties.borwser.BrowserProperties;
+import com.ice.security.core.properties.social.SocialProperties;
 import com.ice.security.core.properties.validatecode.ImageCodeProperties;
 import com.ice.security.core.properties.validatecode.SmsCodeProperties;
 import com.ice.security.core.properties.validatecode.ValidateCodeProperties;
@@ -17,17 +18,25 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @ConfigurationProperties(prefix = "ice.security")
 public class SecurityProperties {
 
-    /**
-     * 浏览器属性配置
-     */
+    /**浏览器属性配置*/
     @NestedConfigurationProperty
     private BrowserProperties browser = new BrowserProperties();
 
-    /**
-     * 验证码属性配置
-     */
+    /**验证码属性配置*/
     @NestedConfigurationProperty
     private ValidateCodeProperties code = new ValidateCodeProperties();
+
+    /**第三方授权登录属性配置*/
+    @NestedConfigurationProperty
+    private SocialProperties social = new SocialProperties();
+
+    public SocialProperties getSocial() {
+        return social;
+    }
+
+    public void setSocial(SocialProperties social) {
+        this.social = social;
+    }
 
     public ValidateCodeProperties getCode() {
         return code;

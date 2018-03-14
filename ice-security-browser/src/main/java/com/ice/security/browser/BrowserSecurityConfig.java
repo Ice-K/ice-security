@@ -8,11 +8,13 @@ import com.ice.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.method.P;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -41,12 +43,17 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    @Autowired
+    private SpringSocialConfigurer iceSocialSecurityConfig;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         applyPasswordAuthenticationConfig(http);
-        http.apply(validateCodeSecurityConfig)
+        http.apply(validateCodeSecurityConfig)//校验码相关配置
                 .and()
-             .apply(smsCodeAuthenticationSecurityConfig)
+             .apply(smsCodeAuthenticationSecurityConfig)//短信登录相关配置
+                .and()
+             .apply(iceSocialSecurityConfig)//第三方登录
                 .and()
              .rememberMe()
                 .tokenRepository(persistentTokenRepository())
@@ -54,7 +61,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .userDetailsService(userDetailsService)
                 .and()
              .authorizeRequests()
-                .antMatchers(
+                .antMatchers(//不需要校验的部分
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
