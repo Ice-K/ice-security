@@ -1,4 +1,4 @@
-package com.ice.security.core.validate.sms;
+package com.ice.security.core.validate.code.sms;
 
 /**
  * Description：短信服务供应商接口

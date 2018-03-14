@@ -1,6 +1,10 @@
 package com.ice.security.core.validate.code;
 
 import com.ice.security.core.properties.SecurityProperties;
+import com.ice.security.core.validate.code.ValidateCode;
+import com.ice.security.core.validate.code.ValidateCodeController;
+import com.ice.security.core.validate.code.ValidateCodeException;
+import com.ice.security.core.validate.code.ValidateCodeProcessor;
 import com.ice.security.core.validate.code.image.ImageCode;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -29,7 +33,7 @@ import java.util.Set;
  * Cteated by wangpeng
  * 2018/3/12 9:47
  */
-public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
+public class SmsCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     private AuthenticationFailureHandler authenticationFailureHandler;
 
@@ -47,13 +51,11 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        String[] configUrls = StringUtils.split(securityProperties.getCode().getImage().getUrls(),",");
+        String[] configUrls = StringUtils.split(securityProperties.getCode().getSms().getUrls(),",");
         if (configUrls != null) {
             Collections.addAll(urls, configUrls);
         }
-        if (securityProperties.getCode().getImage().isEnable()) {
-            urls.add("/authentication/form");
-        }
+        urls.add("/authentication/mobile");
     }
 
     /**
@@ -95,9 +97,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     private void validate(ServletWebRequest servletWebRequest) throws ServletRequestBindingException {
 
         //session中的验证码对象
-        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(servletWebRequest,ValidateCodeProcessor.SESSION_KEY_PREFIX + "IMAGE");
+        ValidateCode codeInSession = (ValidateCode) sessionStrategy.getAttribute(servletWebRequest, ValidateCodeProcessor.SESSION_KEY_PREFIX + "SMS");
         //用户输入的验证码字符串
-        String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(),"imageCode");
+        String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(),"smsCode");
 
         if (StringUtils.isBlank(codeInRequest)) {//如果请求中的验证码为空
             throw new ValidateCodeException("请输入验证码");
@@ -108,7 +110,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         }
 
         if (codeInSession.isExpried()) {//如果session中的验证码过期
-            sessionStrategy.removeAttribute(servletWebRequest,ValidateCodeProcessor.SESSION_KEY_PREFIX + "IMAGE");
+            sessionStrategy.removeAttribute(servletWebRequest,ValidateCodeProcessor.SESSION_KEY_PREFIX + "SMS");
             throw new ValidateCodeException("验证码已过期");
         }
 
@@ -117,7 +119,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         }
 
         //验证码匹配成功
-        sessionStrategy.removeAttribute(servletWebRequest, ValidateCodeProcessor.SESSION_KEY_PREFIX + "IMAGE");
+        sessionStrategy.removeAttribute(servletWebRequest, ValidateCodeProcessor.SESSION_KEY_PREFIX + "SMS");
     }
 
 

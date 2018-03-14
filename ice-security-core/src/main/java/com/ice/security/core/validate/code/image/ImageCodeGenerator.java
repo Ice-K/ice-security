@@ -1,6 +1,7 @@
-package com.ice.security.core.validate.code;
+package com.ice.security.core.validate.code.image;
 
 import com.ice.security.core.properties.SecurityProperties;
+import com.ice.security.core.validate.code.ValidateCodeGenerator;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -26,10 +27,10 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
     @Override
     public ImageCode generator(ServletWebRequest request) {
 
-        int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width", securityProperties.getCodeImage().getWidth());
-        int height = ServletRequestUtils.getIntParameter(request.getRequest(),"height", securityProperties.getCodeImage().getHeight());
-        int length = securityProperties.getCodeImage().getLength();
-        int expireIn = securityProperties.getCodeImage().getExpireIn();
+        int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width", securityProperties.getCode().getImage().getWidth());
+        int height = ServletRequestUtils.getIntParameter(request.getRequest(),"height", securityProperties.getCode().getImage().getHeight());
+        int length = securityProperties.getCode().getImage().getLength();
+        int expireIn = securityProperties.getCode().getImage().getExpireIn();
 
 
 

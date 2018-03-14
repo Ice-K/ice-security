@@ -1,7 +1,7 @@
-package com.ice.security.core.validate.sms;
+package com.ice.security.core.validate.code.sms;
 
 /**
- * Description：
+ * Description：默认短信验证码生成
  * Cteated by wangpeng
  * 2018/3/12 17:42
  */

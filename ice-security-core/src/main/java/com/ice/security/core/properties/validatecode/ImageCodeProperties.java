@@ -5,22 +5,18 @@ package com.ice.security.core.properties.validatecode;
  * Cteated by wangpeng
  * 2018/3/12 12:36
  */
-public class ImageCodeProperties {
+public class ImageCodeProperties extends SmsCodeProperties{
+
+    public ImageCodeProperties() {
+        setLength(4);
+        setExpireIn(120);
+    }
 
     /** 验证码图片宽度 */
     private int width = 65;
 
     /** 验证码图片高度. */
     private int height = 25;
-
-    /** 验证码字符个数. */
-    private int length = 4;
-
-    /** 验证码有效期. */
-    private int expireIn = 60;
-
-    /** 需要验证的url 格式 /xxxx,/xxxx. */
-    private String urls;
 
     /** 是否启用登录验证码. */
     private boolean enable = true;
@@ -31,14 +27,6 @@ public class ImageCodeProperties {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
-    }
-
-    public String getUrls() {
-        return urls;
-    }
-
-    public void setUrls(String urls) {
-        this.urls = urls;
     }
 
     public int getWidth() {
@@ -57,19 +45,4 @@ public class ImageCodeProperties {
         this.height = height;
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getExpireIn() {
-        return expireIn;
-    }
-
-    public void setExpireIn(int expireIn) {
-        this.expireIn = expireIn;
-    }
 }

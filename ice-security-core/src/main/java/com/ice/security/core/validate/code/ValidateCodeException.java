@@ -7,10 +7,9 @@ import org.springframework.security.core.AuthenticationException;
  * Cteated by wangpeng
  * 2018/3/12 9:53
  */
-class ValidateCodeException extends AuthenticationException {
+public class ValidateCodeException extends AuthenticationException {
     private static final long serialVersionUID = 6447842804573687746L;
-
-    ValidateCodeException(String msg) {
+    public ValidateCodeException(String msg) {
         super(msg);
     }
 }

@@ -1,4 +1,4 @@
-package com.ice.security.core.validate.code;
+package com.ice.security.core.validate.code.image;
 
 import com.ice.security.core.validate.code.ValidateCode;
 

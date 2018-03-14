@@ -1,12 +1,12 @@
 package com.ice.security.browser;
 
+import com.ice.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.ice.security.core.properties.SecurityProperties;
+import com.ice.security.core.validate.code.SmsCodeFilter;
 import com.ice.security.core.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.ProviderManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.UserDetailsServiceConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,6 +44,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
 
     /**
      * 自定义密码加密及校验
@@ -71,7 +74,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         validateCodeFilter.setSecurityProperties(securityProperties);
         validateCodeFilter.afterPropertiesSet();
 
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+        SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
+        smsCodeFilter.setAuthenticationFailureHandler(iceAuthenticationFailureHandler);
+        smsCodeFilter.setSecurityProperties(securityProperties);
+        smsCodeFilter.afterPropertiesSet();
+
+        http.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
             .formLogin()//表单登录
                 .loginPage("/authentication/require")//自定义认证页面
                 .loginProcessingUrl("/authentication/form")//配置登录请求
@@ -85,14 +94,15 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         //http.httpBasic()//httpBasic登录
                 .and()
             .authorizeRequests()//对请求授权
-            //忽略的请求
-            .antMatchers("/authentication/require",
-                    securityProperties.getBrowser().getLoginPage(),
-                    "/code/image").permitAll()
-            .anyRequest()//任何请求
-            .authenticated()//都需要身份认证
-            .and()
-            .csrf().disable();//关闭跨站请求功能
+                //忽略的请求
+                .antMatchers("/authentication/require",
+                        securityProperties.getBrowser().getLoginPage(),
+                        "/code/*").permitAll()
+                .anyRequest()//任何请求
+                .authenticated()//都需要身份认证
+                .and()
+            .csrf().disable()//关闭跨站请求功能
+            .apply(smsCodeAuthenticationSecurityConfig);
 
     }
 }

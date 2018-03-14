@@ -1,17 +1,28 @@
 package com.ice.security.core.properties.validatecode;
 
 /**
- * Description：
+ * Description：短信验证码属性配置
  * Cteated by wangpeng
  * 2018/3/12 18:08
  */
 public class SmsCodeProperties {
 
-    /** 短信验证码长度. */
+    /** 验证码长度. */
     private int length = 6;
 
-    /** 短信验证码有效期 */
+    /** 验证码有效期 */
     private int expireIn = 180;
+
+    /** 需要验证的url 格式 /xxxx,/xxxx. */
+    private String urls;
+
+    public String getUrls() {
+        return urls;
+    }
+
+    public void setUrls(String urls) {
+        this.urls = urls;
+    }
 
     public int getLength() {
         return length;

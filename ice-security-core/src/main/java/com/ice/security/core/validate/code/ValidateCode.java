@@ -1,6 +1,5 @@
 package com.ice.security.core.validate.code;
 
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
