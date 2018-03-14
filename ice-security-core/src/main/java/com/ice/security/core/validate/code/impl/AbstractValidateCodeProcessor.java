@@ -33,7 +33,9 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
 
     /**
-     * @see com.ice.security.core.validate.code.ValidateCodeProcessor#create(org.springframework.web.context.request.ServletWebRequest)
+     * @see
+     * com.ice.security.core.validate.code.ValidateCodeProcessor#create(
+     * org.springframework.web.context.request.ServletWebRequest)
      * @param request 请求
      * @throws Exception
      */

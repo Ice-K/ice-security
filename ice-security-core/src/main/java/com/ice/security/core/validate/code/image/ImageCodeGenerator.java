@@ -2,6 +2,7 @@ package com.ice.security.core.validate.code.image;
 
 import com.ice.security.core.properties.SecurityProperties;
 import com.ice.security.core.validate.code.ValidateCodeGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -22,6 +23,7 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
     private static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
     private static Random random = new Random();
 
+    @Autowired
     private SecurityProperties securityProperties;
 
     @Override

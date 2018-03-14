@@ -17,7 +17,7 @@ public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode>
     /**
      * 发送图片验证码，将其写到响应中
      * @param request 请求
-     * @param imageCode
+     * @param imageCode 图片类
      * @throws Exception
      */
     @Override

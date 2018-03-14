@@ -1,7 +1,7 @@
 package com.ice.security.browser.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ice.security.core.properties.borwser.LoginType;
+import com.ice.security.core.properties.borwser.LoginResponseType;
 import com.ice.security.core.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class IceAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         logger.info("登录成功");
 
-        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {//如果配置返回的是JSON
+        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {//如果配置返回的是JSON
             httpServletResponse.setContentType("application/json;charset=UTF-8");
             httpServletResponse.getWriter().write(objectMapper.writeValueAsString(authentication));
         } else {//如果配置为认证成功后跳转

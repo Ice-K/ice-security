@@ -1,6 +1,7 @@
 package com.ice.security.browser;
 
 import com.ice.security.browser.support.SimpleResponse;
+import com.ice.security.core.properties.SecurityConstants;
 import com.ice.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class BrowserSecurityController {
      * @param response HttpServletResponse
      * @return
      */
-    @RequestMapping("/authentication/require")
+    @RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)//401
     public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

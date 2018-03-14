@@ -1,19 +1,16 @@
 package com.ice.security.browser;
 
+import com.ice.security.core.authentication.AbstractChannelSecurityConfig;
 import com.ice.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.ice.security.core.properties.SecurityConstants;
 import com.ice.security.core.properties.SecurityProperties;
-import com.ice.security.core.validate.code.SmsCodeFilter;
-import com.ice.security.core.validate.code.ValidateCodeFilter;
+import com.ice.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -26,17 +23,11 @@ import javax.sql.DataSource;
  * 2018/3/10 1:01
  */
 @Configuration
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
 
     @Autowired
     private SecurityProperties securityProperties;
-
-    @Autowired
-    private AuthenticationSuccessHandler iceAuthenticationSuccessHandler;
-
-    @Autowired
-    private AuthenticationFailureHandler iceAuthenticationFailureHandler;
 
     @Autowired
     private DataSource dataSource;
@@ -46,6 +37,36 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        applyPasswordAuthenticationConfig(http);
+        http.apply(validateCodeSecurityConfig)
+                .and()
+             .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+             .rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                .userDetailsService(userDetailsService)
+                .and()
+             .authorizeRequests()
+                .antMatchers(
+                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                        securityProperties.getBrowser().getLoginPage(),
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*"
+
+                )
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+             .csrf().disable();
+    }
 
 
     /**
@@ -67,42 +88,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         return tokenRepository;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(iceAuthenticationFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        validateCodeFilter.afterPropertiesSet();
 
-        SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
-        smsCodeFilter.setAuthenticationFailureHandler(iceAuthenticationFailureHandler);
-        smsCodeFilter.setSecurityProperties(securityProperties);
-        smsCodeFilter.afterPropertiesSet();
 
-        http.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-            .formLogin()//表单登录
-                .loginPage("/authentication/require")//自定义认证页面
-                .loginProcessingUrl("/authentication/form")//配置登录请求
-                .successHandler(iceAuthenticationSuccessHandler)//自定义认证成功以后的处理
-                .failureHandler(iceAuthenticationFailureHandler)//自定义认证失败后的处理
-                .and()
-            .rememberMe()//记住我
-                .tokenRepository(persistentTokenRepository())//token配置
-                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//token保存时间默认一星期
-                .userDetailsService(userDetailsService)//认证成功后返回userDetails
-        //http.httpBasic()//httpBasic登录
-                .and()
-            .authorizeRequests()//对请求授权
-                //忽略的请求
-                .antMatchers("/authentication/require",
-                        securityProperties.getBrowser().getLoginPage(),
-                        "/code/*").permitAll()
-                .anyRequest()//任何请求
-                .authenticated()//都需要身份认证
-                .and()
-            .csrf().disable()//关闭跨站请求功能
-            .apply(smsCodeAuthenticationSecurityConfig);
 
-    }
 }

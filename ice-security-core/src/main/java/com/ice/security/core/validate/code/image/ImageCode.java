@@ -18,8 +18,6 @@ public class ImageCode extends ValidateCode implements Serializable{
     /** 验证码图片. */
     private BufferedImage image;
 
-    /** 验证码有效时间单位（秒）. */
-    private LocalDateTime expireTime;
 
     public ImageCode(BufferedImage image, String code, int expireIn) {
         super(code, expireIn);

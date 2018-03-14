@@ -1,7 +1,7 @@
 package com.ice.security.core.authentication.mobile;
 
+import com.ice.security.core.properties.SecurityConstants;
 import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -17,15 +17,19 @@ import javax.servlet.http.HttpServletResponse;
  * 2018/3/13 17:47
  */
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-
-    public static final String ICE_FORM_MOBILE_KEY = "mobile";
-    private String mobileParameter = ICE_FORM_MOBILE_KEY;
+    // ~ Static fields/initializers
+    // =====================================================================================
+    private String mobileParameter = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
     private boolean postOnly = true;
 
+    // ~ Constructors
+    // ===================================================================================================
     public SmsCodeAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/authentication/mobile", "POST"));
+        super(new AntPathRequestMatcher(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, "POST"));
     }
 
+    // ~ Methods
+    // ========================================================================================================
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if (this.postOnly && !request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
@@ -36,7 +40,10 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
             }
 
             mobile = mobile.trim();
+
             SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken(mobile);
+
+            // Allow subclasses to set the "details" property
             this.setDetails(request, authRequest);
             return this.getAuthenticationManager().authenticate(authRequest);
         }
@@ -50,16 +57,41 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         return request.getParameter(this.mobileParameter);
     }
 
+    /**
+     * Provided so that subclasses may configure what is put into the
+     * authentication request's details property.
+     *
+     * @param request
+     *            that an authentication request is being created for
+     * @param authRequest
+     *            the authentication request object that should have its details
+     *            set
+     */
     protected void setDetails(HttpServletRequest request, SmsCodeAuthenticationToken authRequest) {
         authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
     }
 
+    /**
+     * Sets the parameter name which will be used to obtain the mobile from
+     * the login request.
+     *
+     * @param mobileParameter
+     *            the parameter name. Defaults to "mobile".
+     */
     public void setMobileParameter(String mobileParameter) {
         Assert.hasText(mobileParameter, "mobile parameter must not be empty or null");
         this.mobileParameter = mobileParameter;
     }
 
-
+    /**
+     * Defines whether only HTTP POST requests will be allowed by this filter.
+     * If set to true, and an authentication request is received which is not a
+     * POST request, an exception will be raised immediately and authentication
+     * will not be attempted. The <tt>unsuccessfulAuthentication()</tt> method
+     * will be called as if handling a failed authentication.
+     * <p>
+     * Defaults to <tt>true</tt> but may be overridden by subclasses.
+     */
     public void setPostOnly(boolean postOnly) {
         this.postOnly = postOnly;
     }

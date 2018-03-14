@@ -1,6 +1,5 @@
 package com.ice.security.core.validate.code;
 
-import com.ice.security.core.properties.validatecode.ValidateCodeProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

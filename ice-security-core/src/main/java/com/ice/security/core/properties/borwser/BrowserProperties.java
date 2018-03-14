@@ -1,6 +1,8 @@
 package com.ice.security.core.properties.borwser;
 
 
+import com.ice.security.core.properties.SecurityConstants;
+
 /**
  * Description:browserSecurity属性配置文件
  * Cteated by wangpeng
@@ -9,10 +11,10 @@ package com.ice.security.core.properties.borwser;
 public class BrowserProperties {
 
     /** 标准登录页. */
-    private String loginPage = "/login.html";
+    private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
     /** 认证结果返回JSON或者跳转REDIRECT. */
-    private LoginType loginType = LoginType.JSON;
+    private LoginResponseType loginType = LoginResponseType.JSON;
 
     /** 记住我token存储时间设置(单位秒). */
     private int rememberMeSeconds = 60*60*24*7;
@@ -33,11 +35,11 @@ public class BrowserProperties {
         this.loginPage = loginPage;
     }
 
-    public LoginType getLoginType() {
+    public LoginResponseType getLoginType() {
         return loginType;
     }
 
-    public void setLoginType(LoginType loginType) {
+    public void setLoginType(LoginResponseType loginType) {
         this.loginType = loginType;
     }
 }

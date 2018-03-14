@@ -5,7 +5,14 @@ package com.ice.security.core.properties.borwser;
  * Cteated by wangpeng
  * 2018/3/10 23:58
  */
-public enum LoginType {
-    REDIRECT,//跳转
-    JSON//json数据
+public enum LoginResponseType {
+    /**
+     * 跳转
+     */
+    REDIRECT,
+
+    /**
+     * 返回json
+     */
+    JSON
 }
