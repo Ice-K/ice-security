@@ -1,12 +1,10 @@
-package com.ice.security.core.social.qq.connet;
+package com.ice.security.core.social.qq.connect;
 
 import com.ice.security.core.social.qq.api.QQ;
 import com.ice.security.core.social.qq.api.QQUserInfo;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
-
-import java.io.IOException;
 
 /**
  * Description: 将个性化的用户信息适配成标准的connection

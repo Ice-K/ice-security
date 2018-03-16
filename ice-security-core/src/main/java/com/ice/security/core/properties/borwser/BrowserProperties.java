@@ -2,6 +2,7 @@ package com.ice.security.core.properties.borwser;
 
 
 import com.ice.security.core.properties.SecurityConstants;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
  * Description:browserSecurity属性配置文件
@@ -9,6 +10,10 @@ import com.ice.security.core.properties.SecurityConstants;
  * 2018/3/10 21:59
  */
 public class BrowserProperties {
+
+    /**session属性配置*/
+    @NestedConfigurationProperty
+    private SessionProperties session = new SessionProperties();
 
     /** 标准注册页 /ice-signup.html. */
     private String signUpUrl = SecurityConstants.DEFAULT_SIGNUP_PAGE_URL;
@@ -52,5 +57,13 @@ public class BrowserProperties {
 
     public void setLoginType(LoginResponseType loginType) {
         this.loginType = loginType;
+    }
+
+    public SessionProperties getSession() {
+        return session;
+    }
+
+    public void setSession(SessionProperties session) {
+        this.session = session;
     }
 }

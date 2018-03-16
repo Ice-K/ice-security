@@ -1,5 +1,6 @@
 package com.ice.security.browser;
 
+import com.ice.security.browser.session.IceExpiredSessionStrategy;
 import com.ice.security.core.authentication.AbstractChannelSecurityConfig;
 import com.ice.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.ice.security.core.properties.SecurityConstants;
@@ -14,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -46,6 +49,12 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SpringSocialConfigurer iceSocialSecurityConfig;
 
+    @Autowired
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+
+    @Autowired
+    private InvalidSessionStrategy invalidSessionStrategy;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         applyPasswordAuthenticationConfig(http);
@@ -60,6 +69,13 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
                 .and()
+            .sessionManagement()
+                .invalidSessionStrategy(invalidSessionStrategy)//session过期
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())//同一个用户登录的最大数量
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())//当session数量达到最大后组织后面的用户登录
+                .expiredSessionStrategy(sessionInformationExpiredStrategy)//session并发
+                .and()
+                .and()
             .authorizeRequests()
                 .antMatchers(//不需要校验的部分
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
@@ -67,7 +83,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",//code/*
                         securityProperties.getBrowser().getSignUpUrl(),
-                        "/user/regist"
+                        "/user/regist", "/session/invalid"
                 ).permitAll()
                 .anyRequest()
                 .authenticated()

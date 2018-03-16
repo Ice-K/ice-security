@@ -1,9 +1,8 @@
-package com.ice.security.core.social.qq.connet;
+package com.ice.security.core.social.qq.connect;
 
 import com.ice.security.core.social.qq.api.QQ;
 import com.ice.security.core.social.qq.api.QQImpl;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
-import org.springframework.social.oauth2.OAuth2Template;
 
 /**
  * Description:装配ServiceProvider服务提供商

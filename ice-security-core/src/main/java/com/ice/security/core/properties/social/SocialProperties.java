@@ -1,6 +1,7 @@
 package com.ice.security.core.properties.social;
 
 import com.ice.security.core.properties.social.qq.QQProperties;
+import com.ice.security.core.properties.social.wechat.WeChatProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
@@ -16,6 +17,18 @@ public class SocialProperties {
     /**QQ*/
     @NestedConfigurationProperty
     private QQProperties qq = new QQProperties();
+
+    /**微信*/
+    @NestedConfigurationProperty
+    private WeChatProperties wechat = new WeChatProperties();
+
+    public WeChatProperties getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(WeChatProperties wechat) {
+        this.wechat = wechat;
+    }
 
     public String getFilterProcessesUrl() {
         return filterProcessesUrl;
