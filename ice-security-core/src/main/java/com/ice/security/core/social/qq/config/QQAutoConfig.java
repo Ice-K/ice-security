@@ -2,7 +2,7 @@ package com.ice.security.core.social.qq.config;
 
 import com.ice.security.core.properties.SecurityProperties;
 import com.ice.security.core.properties.social.qq.QQProperties;
-import com.ice.security.core.social.qq.connet.QQconnectionFactory;
+import com.ice.security.core.social.qq.connet.QQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter;
@@ -25,6 +25,6 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
     protected ConnectionFactory<?> createConnectionFactory() {
         QQProperties qqConfig = securityProperties.getSocial().getQq();
 
-        return new QQconnectionFactory(qqConfig.getProviderId(),qqConfig.getAppId(),qqConfig.getAppSecret());
+        return new QQConnectionFactory(qqConfig.getProviderId(),qqConfig.getAppId(),qqConfig.getAppSecret());
     }
 }

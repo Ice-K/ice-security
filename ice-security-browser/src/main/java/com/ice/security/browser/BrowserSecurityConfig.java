@@ -51,28 +51,28 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
         applyPasswordAuthenticationConfig(http);
         http.apply(validateCodeSecurityConfig)//校验码相关配置
                 .and()
-             .apply(smsCodeAuthenticationSecurityConfig)//短信登录相关配置
+            .apply(smsCodeAuthenticationSecurityConfig)//短信登录相关配置
                 .and()
-             .apply(iceSocialSecurityConfig)//第三方登录
+            .apply(iceSocialSecurityConfig)//第三方登录
                 .and()
-             .rememberMe()
+            .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
                 .and()
-             .authorizeRequests()
+            .authorizeRequests()
                 .antMatchers(//不需要校验的部分
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*"
-
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                        securityProperties.getBrowser().getSignUpUrl()
                 )
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-             .csrf().disable();
+            .csrf().disable();
     }
 
 

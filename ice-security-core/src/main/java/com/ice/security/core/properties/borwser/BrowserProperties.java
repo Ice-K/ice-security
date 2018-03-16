@@ -10,7 +10,10 @@ import com.ice.security.core.properties.SecurityConstants;
  */
 public class BrowserProperties {
 
-    /** 标准登录页. */
+    /** 标准注册页 /ice-signup.html. */
+    private String signUpUrl = SecurityConstants.DEFAULT_SIGNUP_PAGE_URL;
+
+    /** 标准登录页 /ice-login.html. */
     private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
     /** 认证结果返回JSON或者跳转REDIRECT. */
@@ -18,6 +21,14 @@ public class BrowserProperties {
 
     /** 记住我token存储时间设置(单位秒). */
     private int rememberMeSeconds = 60*60*24*7;
+
+    public String getSignUpUrl() {
+        return signUpUrl;
+    }
+
+    public void setSignUpUrl(String signUpUrl) {
+        this.signUpUrl = signUpUrl;
+    }
 
     public int getRememberMeSeconds() {
         return rememberMeSeconds;

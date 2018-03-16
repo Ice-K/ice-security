@@ -10,9 +10,20 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
  */
 public class SocialProperties {
 
+    /**第三方登录请求路径*/
+    private String filterProcessesUrl = "/auth";
+
     /**QQ*/
     @NestedConfigurationProperty
     private QQProperties qq = new QQProperties();
+
+    public String getFilterProcessesUrl() {
+        return filterProcessesUrl;
+    }
+
+    public void setFilterProcessesUrl(String filterProcessesUrl) {
+        this.filterProcessesUrl = filterProcessesUrl;
+    }
 
     public QQProperties getQq() {
         return qq;

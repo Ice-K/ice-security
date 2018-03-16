@@ -16,7 +16,7 @@ import java.io.IOException;
 public class QQAdapter implements ApiAdapter<QQ> {
 
     @Override
-    public boolean test(QQ qq) {
+    public boolean test(QQ api) {
         return true;
     }
 

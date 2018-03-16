@@ -23,6 +23,11 @@ import java.util.List;
 public class UserController {
 
 
+    @PostMapping("/regist")
+    public void regist(User user) {
+        //注册用户
+    }
+
     @GetMapping("/me")
     public Object getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication();

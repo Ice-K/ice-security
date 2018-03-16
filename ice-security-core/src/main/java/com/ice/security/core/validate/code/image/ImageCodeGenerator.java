@@ -82,17 +82,18 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
 
         shear(g2, width, height, c);// 使图片扭曲
 
-        g2.setColor(getRandColor(100, 160));
         int fontSize = height-4;
-        Font font = new Font("Algerian", Font.ITALIC, fontSize);
+
+        Font font = new Font("Algerian", Font.ITALIC + Font.BOLD, fontSize);
         g2.setFont(font);
         char[] chars = code.toCharArray();
         for(int i = 0; i < length; i++){
+            g2.setColor(getRandColor(0, 255));
             AffineTransform affine = new AffineTransform();
             affine.setToRotation(Math.PI / 4 * rand.nextDouble() * (rand.nextBoolean() ? 1 : -1), (width / length) * i + fontSize/2, height/2);
             g2.setTransform(affine);
-//            Color fontColor = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-//            g2.setColor(fontColor);
+            //Color fontColor = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+            //g2.setColor(fontColor);
             g2.drawChars(chars, i, 1, ((width-10) / length) * i + 5, height-4);
         }
 
