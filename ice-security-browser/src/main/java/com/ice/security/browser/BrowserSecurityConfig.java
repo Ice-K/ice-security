@@ -64,6 +64,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .and()
             .apply(iceSocialSecurityConfig)//第三方登录
                 .and()
+            //记住我配置，如果想在'记住我'登录时记录日志，可以注册一个InteractiveAuthenticationSuccessEvent事件的监听器
             .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
@@ -83,7 +84,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",//code/*
                         securityProperties.getBrowser().getSignUpUrl(),
-                        "/user/regist", "/session/invalid"
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
+                        "/user/regist"
                 ).permitAll()
                 .anyRequest()
                 .authenticated()
