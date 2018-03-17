@@ -70,7 +70,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         }
         addUrlToMap(securityProperties.getCode().getImage().getUrls(), ValidateCodeType.IMAGE);//其他请求
 
-        urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);//登录请求
+        if (securityProperties.getCode().getSms().isEnable()) {
+            urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);//登录请求
+        }
         addUrlToMap(securityProperties.getCode().getSms().getUrls(), ValidateCodeType.SMS);//其他请求
     }
 

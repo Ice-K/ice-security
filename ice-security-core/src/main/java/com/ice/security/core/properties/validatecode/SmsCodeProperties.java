@@ -16,6 +16,17 @@ public class SmsCodeProperties {
     /** 需要验证的url 格式 /xxxx,/xxxx. */
     private String urls;
 
+    /** 是否启用登录验证码. */
+    private boolean enable = true;
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
     public String getUrls() {
         return urls;
     }

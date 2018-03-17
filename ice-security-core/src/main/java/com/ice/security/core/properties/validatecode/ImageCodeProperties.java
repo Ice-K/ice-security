@@ -18,17 +18,6 @@ public class ImageCodeProperties extends SmsCodeProperties{
     /** 验证码图片高度. */
     private int height = 25;
 
-    /** 是否启用登录验证码. */
-    private boolean enable = true;
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
     public int getWidth() {
         return width;
     }
