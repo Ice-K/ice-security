@@ -82,6 +82,6 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
                 true,//用户是否过期
                 true,//密码是否过期
                 true,//用户是否被锁定
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 }

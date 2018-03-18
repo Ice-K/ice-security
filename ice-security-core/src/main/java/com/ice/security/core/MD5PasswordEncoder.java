@@ -1,4 +1,4 @@
-package com.ice.security.browser;
+package com.ice.security.core;
 
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.security.crypto.password.PasswordEncoder;

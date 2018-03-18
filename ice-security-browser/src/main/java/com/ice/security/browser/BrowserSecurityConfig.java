@@ -104,18 +104,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
             .csrf().disable();
     }
 
-
-    /**
-     * 自定义密码加密及校验
-     * @return passwordEncoder密码校验器
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-
-        return new MD5PasswordEncoder();//自定义MD5加密
-        //return new BCryptPasswordEncoder();//security自带加密
-    }
-
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
@@ -123,8 +111,5 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
         //tokenRepository.setCreateTableOnStartup(true);//在启动的时候自动创建表(存储user和token)
         return tokenRepository;
     }
-
-
-
 
 }

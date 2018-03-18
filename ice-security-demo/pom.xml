@@ -12,9 +12,14 @@
     <artifactId>ice-security-demo</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.ice.security</groupId>
             <artifactId>ice-security-browser</artifactId>
+            <version>${ice.security.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.ice.security</groupId>
+            <artifactId>ice-security-app</artifactId>
             <version>${ice.security.version}</version>
         </dependency>
         <dependency>

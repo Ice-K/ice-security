@@ -1,4 +1,4 @@
-package com.ice.security.browser.support;
+package com.ice.security.core.support;
 
 /**
  * Description: 封装BrowserSecurityController返回的数据

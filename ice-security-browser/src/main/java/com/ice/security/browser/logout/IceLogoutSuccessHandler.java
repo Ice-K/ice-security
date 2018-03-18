@@ -1,8 +1,7 @@
 package com.ice.security.browser.logout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ice.security.browser.support.SimpleResponse;
-import com.ice.security.core.properties.SecurityProperties;
+import com.ice.security.core.support.SimpleResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

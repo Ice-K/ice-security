@@ -5,7 +5,10 @@ import com.ice.dto.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -40,8 +43,10 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public Object getCurrentUser() {
-        return SecurityContextHolder.getContext().getAuthentication();
+    public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+
+        //return SecurityContextHolder.getContext().getAuthentication();
+        return user;
     }
 
 

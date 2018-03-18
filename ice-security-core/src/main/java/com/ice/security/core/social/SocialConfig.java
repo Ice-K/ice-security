@@ -34,6 +34,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired(required = false)
     private ConnectionSignUp connectionSignUp;
 
+    @Autowired(required = false)
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
+
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
@@ -46,11 +49,16 @@ public class SocialConfig extends SocialConfigurerAdapter {
     }
 
 
+    /**
+     * 社交登录配置类，供浏览器或app模块引入设计登录配置用。
+     * @return
+     */
     @Bean
     public SpringSocialConfigurer iceSocialSecurityConfig() {
         String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
         IceSpringSocialConfigurer configurer = new IceSpringSocialConfigurer(filterProcessesUrl);
         configurer.signupUrl(securityProperties.getBrowser().getSignUpPage());
+        configurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
         return configurer;
     }
 
