@@ -13,6 +13,7 @@ import org.springframework.security.access.method.P;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -55,6 +56,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private InvalidSessionStrategy invalidSessionStrategy;
 
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         applyPasswordAuthenticationConfig(http);
@@ -77,15 +81,22 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .expiredSessionStrategy(sessionInformationExpiredStrategy)//session并发
                 .and()
                 .and()
+            .logout()
+                .logoutUrl("/logout")//退出请求路径
+                //.logoutSuccessUrl("ice-logout.html")//退出成功后的路径
+                .logoutSuccessHandler(logoutSuccessHandler)//退出成功处理器
+                .deleteCookies("JSESSIONID")//退出时从当前浏览器中删除sessionId
+                .and()
             .authorizeRequests()
                 .antMatchers(//不需要校验的部分
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",//code/*
-                        securityProperties.getBrowser().getSignUpUrl(),
+                        securityProperties.getBrowser().getSignUpPage(),
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                        "/user/regist"
+                        securityProperties.getBrowser().getLogoutPage(),
+                        "/user/regist"//注册
                 ).permitAll()
                 .anyRequest()
                 .authenticated()

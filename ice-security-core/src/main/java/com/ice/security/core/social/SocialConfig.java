@@ -50,7 +50,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     public SpringSocialConfigurer iceSocialSecurityConfig() {
         String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
         IceSpringSocialConfigurer configurer = new IceSpringSocialConfigurer(filterProcessesUrl);
-        configurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
+        configurer.signupUrl(securityProperties.getBrowser().getSignUpPage());
         return configurer;
     }
 

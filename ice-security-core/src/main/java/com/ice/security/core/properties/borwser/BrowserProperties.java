@@ -16,10 +16,13 @@ public class BrowserProperties {
     private SessionProperties session = new SessionProperties();
 
     /** 标准注册页 /ice-signup.html. */
-    private String signUpUrl = SecurityConstants.DEFAULT_SIGNUP_PAGE_URL;
+    private String signUpPage = SecurityConstants.DEFAULT_SIGNUP_PAGE_URL;
 
     /** 标准登录页 /ice-login.html. */
     private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
+
+    /** 标准退出页. */
+    private String logoutPage;
 
     /** 认证结果返回JSON或者跳转REDIRECT. */
     private LoginResponseType loginType = LoginResponseType.JSON;
@@ -27,12 +30,12 @@ public class BrowserProperties {
     /** 记住我token存储时间设置(单位秒). */
     private int rememberMeSeconds = 60*60*24*7;
 
-    public String getSignUpUrl() {
-        return signUpUrl;
+    public String getSignUpPage() {
+        return signUpPage;
     }
 
-    public void setSignUpUrl(String signUpUrl) {
-        this.signUpUrl = signUpUrl;
+    public void setSignUpPage(String signUpPage) {
+        this.signUpPage = signUpPage;
     }
 
     public int getRememberMeSeconds() {
@@ -65,5 +68,13 @@ public class BrowserProperties {
 
     public void setSession(SessionProperties session) {
         this.session = session;
+    }
+
+    public String getLogoutPage() {
+        return logoutPage;
+    }
+
+    public void setLogoutPage(String logoutPage) {
+        this.logoutPage = logoutPage;
     }
 }
