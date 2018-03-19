@@ -56,7 +56,7 @@ public class IceAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
         logger.info("登录成功");
         String header = httpServletRequest.getHeader("Authorization");
         if (header == null || !header.startsWith("Basic ")) {
-            throw new UnapprovedClientAuthenticationException("请求头中午client信息");
+            throw new UnapprovedClientAuthenticationException("请求头中无client信息");
         }
         //
         String[] tokens = this.extractAndDecodeHeader(header, httpServletRequest);

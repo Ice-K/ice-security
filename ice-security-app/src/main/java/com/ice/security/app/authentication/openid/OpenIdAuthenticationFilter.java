@@ -1,4 +1,4 @@
-package com.ice.security.app.social.openid;
+package com.ice.security.app.authentication.openid;
 
 import com.ice.security.core.properties.SecurityConstants;
 import org.springframework.security.authentication.AuthenticationServiceException;

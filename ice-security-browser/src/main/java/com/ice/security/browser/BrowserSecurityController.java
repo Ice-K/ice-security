@@ -1,7 +1,7 @@
 package com.ice.security.browser;
 
 import com.ice.security.core.support.SimpleResponse;
-import com.ice.security.browser.support.SocialUserInfo;
+import com.ice.security.core.support.SocialUserInfo;
 import com.ice.security.core.properties.SecurityConstants;
 import com.ice.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;

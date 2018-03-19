@@ -1,4 +1,4 @@
-package com.ice.security.browser.support;
+package com.ice.security.core.support;
 
 /**
  * Description：社交用户信息

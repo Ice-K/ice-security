@@ -1,6 +1,6 @@
 package com.ice.security.app;
 
-import com.ice.security.app.social.openid.OpenIdAuthenticationSecurityConfig;
+import com.ice.security.app.authentication.openid.OpenIdAuthenticationSecurityConfig;
 import com.ice.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.ice.security.core.properties.SecurityConstants;
 import com.ice.security.core.properties.SecurityProperties;
@@ -70,7 +70,7 @@ public class IceResourceServerConfig extends ResourceServerConfigurerAdapter {
                         securityProperties.getBrowser().getSignUpPage(),
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
                         securityProperties.getBrowser().getLogoutPage(),
-                        "/user/regist"//注册
+                        "/user/regist","/social/signUp"//注册
                 ).permitAll()
                 .anyRequest()
                 .authenticated()

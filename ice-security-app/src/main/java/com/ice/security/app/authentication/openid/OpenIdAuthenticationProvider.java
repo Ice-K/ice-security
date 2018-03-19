@@ -1,4 +1,4 @@
-package com.ice.security.app.social.openid;
+package com.ice.security.app.authentication.openid;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.security.authentication.AuthenticationProvider;

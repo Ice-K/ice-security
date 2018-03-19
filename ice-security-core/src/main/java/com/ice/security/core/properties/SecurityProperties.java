@@ -1,12 +1,9 @@
 package com.ice.security.core.properties;
 
+import com.ice.security.core.properties.OAuth2.OAuth2Properties;
 import com.ice.security.core.properties.borwser.BrowserProperties;
 import com.ice.security.core.properties.social.SocialProperties;
-import com.ice.security.core.properties.validatecode.ImageCodeProperties;
-import com.ice.security.core.properties.validatecode.SmsCodeProperties;
 import com.ice.security.core.properties.validatecode.ValidateCodeProperties;
-import com.ice.security.core.validate.code.ValidateCode;
-import com.ice.security.core.validate.code.ValidateCodeProcessor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -29,6 +26,10 @@ public class SecurityProperties {
     /**第三方授权登录属性配置*/
     @NestedConfigurationProperty
     private SocialProperties social = new SocialProperties();
+
+    /**App OAuth2相关配置*/
+    @NestedConfigurationProperty
+    private OAuth2Properties oauth2 = new OAuth2Properties();
 
     public SocialProperties getSocial() {
         return social;
@@ -54,6 +55,11 @@ public class SecurityProperties {
         this.browser = browser;
     }
 
+    public OAuth2Properties getOauth2() {
+        return oauth2;
+    }
 
-
+    public void setOauth2(OAuth2Properties oauth2) {
+        this.oauth2 = oauth2;
+    }
 }
