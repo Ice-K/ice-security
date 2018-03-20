@@ -1,9 +1,10 @@
 package com.ice.security.browser;
 
 import com.ice.security.core.support.SimpleResponse;
-import com.ice.security.core.support.SocialUserInfo;
+import com.ice.security.core.social.support.SocialUserInfo;
 import com.ice.security.core.properties.SecurityConstants;
 import com.ice.security.core.properties.SecurityProperties;
+import com.ice.security.core.social.SocialController;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +28,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Description: 自定义身份验证的跳转
+ * Description: 浏览器环境下与安全相关的服务
  * Cteated by wangpeng
  * 2018/3/10 21:23
  */
 @RestController
-public class BrowserSecurityController {
+public class BrowserSecurityController extends SocialController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -68,15 +69,13 @@ public class BrowserSecurityController {
         return new SimpleResponse("访问的服务需要身份认证，请引导用户到登录页面");
     }
 
-    @GetMapping("/social/user")
+    /**
+     * 用户第一次社交登录时，会引导用户进行用户注册或绑定，此服务用于在注册或绑定页面获取社交网站用户信息
+     */
+    @GetMapping(SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL)
     private SocialUserInfo getSocialUserInfo(HttpServletRequest request) {
-        SocialUserInfo userInfo = new SocialUserInfo();
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
-        userInfo.setProviderId(connection.getKey().getProviderId());
-        userInfo.setProviderUserId(connection.getKey().getProviderUserId());
-        userInfo.setNickname(connection.getDisplayName());
-        userInfo.setHeadimage(connection.getImageUrl());
-        return userInfo;
+        return buildSocialUserInfo(connection);
     }
 
 

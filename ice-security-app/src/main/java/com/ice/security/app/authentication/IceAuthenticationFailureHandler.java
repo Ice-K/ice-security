@@ -1,8 +1,6 @@
 package com.ice.security.app.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ice.security.core.properties.SecurityProperties;
-import com.ice.security.core.properties.borwser.LoginResponseType;
 import com.ice.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,20 +29,13 @@ public class IceAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private SecurityProperties securityProperties;
-
     @Override
-    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException authenticationException) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException exception) throws IOException, ServletException {
         logger.info("登录失败");
 
-        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
-            httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());//500错误
-            httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(authenticationException.getMessage())));
-        } else {
-            super.onAuthenticationFailure(httpServletRequest, httpServletResponse, authenticationException);
-        }
+        httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());//500
+        httpServletResponse.setContentType("application/json;charset=UTF-8");
+        httpServletResponse.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
 
     }
 }

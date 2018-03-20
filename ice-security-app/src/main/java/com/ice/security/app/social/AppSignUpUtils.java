@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * Description：
+ * Description：app环境下替换providerSignInUtils，避免由于没有session导致读不到社交用户信息的问题
  * Cteated by wangpeng
  * 2018/3/19 11:21
  */
@@ -31,10 +31,20 @@ public class AppSignUpUtils {
     @Autowired
     private ConnectionFactoryLocator connectionFactoryLocator;
 
+    /**
+     * 缓存社交网站用户信息到redis
+     * @param request 请求
+     * @param connectionData 用户信息
+     */
     public void saveConnectionData(WebRequest request, ConnectionData connectionData) {
         redisTemplate.opsForValue().set(getKey(request), connectionData, 10, TimeUnit.MINUTES);
     }
 
+    /**
+     * 将缓存的社交网站用户信息与系统注册用户信息绑定
+     * @param request 请求
+     * @param userId    用户id
+     */
     public void doPostSignUp(WebRequest request, String userId) {
 
         String key = getKey(request);

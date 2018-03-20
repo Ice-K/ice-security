@@ -1,5 +1,6 @@
 package com.ice.security.browser.session;
 
+import com.ice.security.core.properties.SecurityProperties;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
@@ -7,7 +8,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 
 /**
- * Description：
+ * Description：并发登录导致session失效时，默认的处理策略
  * Cteated by wangpeng
  * 2018/3/16 17:31
  */
@@ -15,10 +16,10 @@ public class IceExpiredSessionStrategy extends AbstractSessionStrategy implement
 
 
     /**
-     * @param invalidSessionUrl
+     * @param securityProperties
      */
-    public IceExpiredSessionStrategy(String invalidSessionUrl) {
-        super(invalidSessionUrl);
+    public IceExpiredSessionStrategy(SecurityProperties securityProperties) {
+        super(securityProperties);
     }
 
     /**

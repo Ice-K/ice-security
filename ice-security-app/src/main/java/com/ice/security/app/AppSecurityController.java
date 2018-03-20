@@ -1,7 +1,9 @@
 package com.ice.security.app;
 
 import com.ice.security.app.social.AppSignUpUtils;
-import com.ice.security.core.support.SocialUserInfo;
+import com.ice.security.core.properties.SecurityConstants;
+import com.ice.security.core.social.SocialController;
+import com.ice.security.core.social.support.SocialUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.social.connect.Connection;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * 2018/3/19 11:48
  */
 @RestController
-public class AppSecurityController {
+public class AppSecurityController extends SocialController {
 
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
@@ -27,17 +29,16 @@ public class AppSecurityController {
     @Autowired
     private AppSignUpUtils appSignUpUtils;
 
-    @GetMapping("/social/signUp")
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    /**
+     * 需要注册时跳到这里，返回401和用户信息给前端
+     * @param request 请求
+     * @return  401 用户信息
+     */
+    @GetMapping(SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)//401
     private SocialUserInfo getSocialUserInfo(HttpServletRequest request) {
-        SocialUserInfo userInfo = new SocialUserInfo();
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
-        userInfo.setProviderId(connection.getKey().getProviderId());
-        userInfo.setProviderUserId(connection.getKey().getProviderUserId());
-        userInfo.setNickname(connection.getDisplayName());
-        userInfo.setHeadimage(connection.getImageUrl());
-
         appSignUpUtils.saveConnectionData(new ServletWebRequest(request), connection.createData());
-        return userInfo;
+        return buildSocialUserInfo(connection);
     }
 }

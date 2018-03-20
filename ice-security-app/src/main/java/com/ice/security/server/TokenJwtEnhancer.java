@@ -1,4 +1,4 @@
-package com.ice.security.app.jwt;
+package com.ice.security.server;
 
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -13,7 +13,7 @@ import java.util.Map;
  * Cteated by wangpeng
  * 2018/3/19 16:07
  */
-public class IceJwtTokenEnhancer implements TokenEnhancer {
+public class TokenJwtEnhancer implements TokenEnhancer {
 
 
     @Override

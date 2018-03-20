@@ -13,7 +13,9 @@ import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 /**
- * Description：配置自定义逻辑
+ * Description：浏览器环境下扩展点配置，配置在这里的bean，业务系统都可以通过声明同类型或同名的bean来覆盖安全
+ * 模块默认的配置。
+ *
  * Cteated by wangpeng
  * 2018/3/16 18:48
  */
@@ -24,27 +26,27 @@ public class BrowserSecurityBeanConfig {
     private SecurityProperties securityProperties;
 
     /**
-     * session过期
+     * ession失效时的处理策略配置
      * @return
      */
     @Bean
     @ConditionalOnMissingBean(InvalidSessionStrategy.class)
     public InvalidSessionStrategy invalidSessionStrategy(){
-        return new IceInvalidSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
+        return new IceInvalidSessionStrategy(securityProperties);
     }
 
     /**
-     * session并发
+     * 并发登录导致前一个session失效时的处理策略配置
      * @return
      */
     @Bean
     @ConditionalOnMissingBean(SessionInformationExpiredStrategy.class)
     public SessionInformationExpiredStrategy sessionInformationExpiredStrategy(){
-        return new IceExpiredSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
+        return new IceExpiredSessionStrategy(securityProperties);
     }
 
     /**
-     * 退出登录处理
+     * 退出时的处理策略配置
      * @return
      */
     @Bean

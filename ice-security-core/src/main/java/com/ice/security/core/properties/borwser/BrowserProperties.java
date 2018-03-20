@@ -25,10 +25,17 @@ public class BrowserProperties {
     private String logoutPage;
 
     /** 认证结果返回JSON或者跳转REDIRECT. */
-    private LoginResponseType loginType = LoginResponseType.JSON;
+    private LoginResponseType loginResponseType = LoginResponseType.JSON;
 
-    /** 记住我token存储时间设置(单位秒). */
+    /** 记住我token存储时间设置(单位秒),默认一星期. */
     private int rememberMeSeconds = 60*60*24*7;
+
+    /**
+     * 登录成功后跳转的地址，如果设置了此属性，则登录成功后总是会跳到这个地址上。
+     *
+     * 只在signInResponseType为REDIRECT时生效
+     */
+    private String loginSuccessUrl;
 
     public String getSignUpPage() {
         return signUpPage;
@@ -54,12 +61,12 @@ public class BrowserProperties {
         this.loginPage = loginPage;
     }
 
-    public LoginResponseType getLoginType() {
-        return loginType;
+    public LoginResponseType getLoginResponseType() {
+        return loginResponseType;
     }
 
-    public void setLoginType(LoginResponseType loginType) {
-        this.loginType = loginType;
+    public void setLoginResponseType(LoginResponseType loginResponseType) {
+        this.loginResponseType = loginResponseType;
     }
 
     public SessionProperties getSession() {
@@ -76,5 +83,13 @@ public class BrowserProperties {
 
     public void setLogoutPage(String logoutPage) {
         this.logoutPage = logoutPage;
+    }
+
+    public String getLoginSuccessUrl() {
+        return loginSuccessUrl;
+    }
+
+    public void setLoginSuccessUrl(String loginSuccessUrl) {
+        this.loginSuccessUrl = loginSuccessUrl;
     }
 }

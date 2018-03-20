@@ -1,5 +1,6 @@
-package com.ice.security.app;
+package com.ice.security.app.social;
 
+import com.ice.security.core.properties.SecurityConstants;
 import com.ice.security.core.social.IceSpringSocialConfigurer;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
@@ -23,7 +24,7 @@ public class SpringSocialConfigurerPostProcessor implements BeanPostProcessor {
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (StringUtils.equals(beanName, "iceSocialSecurityConfig")) {
             IceSpringSocialConfigurer configurer = (IceSpringSocialConfigurer) bean;
-            configurer.signupUrl("/social/signUp");
+            configurer.signupUrl(SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL);
             return configurer;
         }
         return bean;

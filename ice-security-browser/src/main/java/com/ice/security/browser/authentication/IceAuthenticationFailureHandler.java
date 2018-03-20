@@ -19,7 +19,7 @@ import java.io.IOException;
 
 
 /**
- * Description:认证失败后的处理
+ * Description:浏览器环境下登录失败的处理器
  * Cteated by wangpeng
  * 2018/3/10 23:42
  */
@@ -38,7 +38,7 @@ public class IceAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException authenticationException) throws IOException, ServletException {
         logger.info("登录失败");
 
-        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
+        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginResponseType())) {
             httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());//500错误
             httpServletResponse.setContentType("application/json;charset=UTF-8");
             httpServletResponse.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(authenticationException.getMessage())));

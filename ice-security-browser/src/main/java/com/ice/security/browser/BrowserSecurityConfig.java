@@ -1,18 +1,16 @@
 package com.ice.security.browser;
 
-import com.ice.security.browser.session.IceExpiredSessionStrategy;
-import com.ice.security.core.authentication.AbstractChannelSecurityConfig;
+import com.ice.security.core.authentication.FormAuthenticationConfig;
 import com.ice.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
-import com.ice.security.core.properties.SecurityConstants;
+import com.ice.security.core.authorize.AuthorizeConfigManager;
 import com.ice.security.core.properties.SecurityProperties;
 import com.ice.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.method.P;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -24,12 +22,12 @@ import javax.sql.DataSource;
 
 
 /**
- * Description: BrowserSecurity配置加载器
+ * Description: 浏览器环境下安全配置主类
  * Cteated by wangpeng
  * 2018/3/10 1:01
  */
 @Configuration
-public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
+public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
@@ -59,9 +57,17 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
+    @Autowired
+    private FormAuthenticationConfig formAuthenticationConfig;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        applyPasswordAuthenticationConfig(http);
+
+        formAuthenticationConfig.configure(http);
+
         http.apply(validateCodeSecurityConfig)//校验码相关配置
                 .and()
             .apply(smsCodeAuthenticationSecurityConfig)//短信登录相关配置
@@ -87,23 +93,17 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .logoutSuccessHandler(logoutSuccessHandler)//退出成功处理器
                 .deleteCookies("JSESSIONID")//退出时从当前浏览器中删除sessionId
                 .and()
-            .authorizeRequests()
-                .antMatchers(//不需要校验的部分
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",//code/*
-                        securityProperties.getBrowser().getSignUpPage(),
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                        securityProperties.getBrowser().getLogoutPage(),
-                        "/user/regist"//注册
-                ).permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
+
             .csrf().disable();
+
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 
+
+    /**
+     * 记住我功能的token存取器配置
+     * @return
+     */
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();

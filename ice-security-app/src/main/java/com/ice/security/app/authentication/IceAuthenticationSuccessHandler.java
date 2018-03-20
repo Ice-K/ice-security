@@ -42,19 +42,25 @@ public class IceAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
     private ObjectMapper objectMapper;
 
     @Autowired
-    private SecurityProperties securityProperties;
-
-    @Autowired
     private ClientDetailsService clientDetailsService;
 
     @Autowired
     private AuthorizationServerTokenServices authorizationServerTokenServices;
 
+    /**
+     * (non-Javadoc)
+     *
+     * @see org.springframework.security.web.authentication.AuthenticationSuccessHandler#onAuthenticationSuccess(
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,org.springframework.security.core.Authentication)
+     */
     @Override
     @SuppressWarnings("unchecked")
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+
         logger.info("登录成功");
+
         String header = httpServletRequest.getHeader("Authorization");
+
         if (header == null || !header.startsWith("Basic ")) {
             throw new UnapprovedClientAuthenticationException("请求头中无client信息");
         }
@@ -65,6 +71,7 @@ public class IceAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
         String clientSecret = tokens[1];
 
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
+
         //校验clientDetails
         if (clientDetails == null) {
             throw new UnapprovedClientAuthenticationException("clientId对应的信息不存在< clientId = " + clientId + " >");
@@ -93,7 +100,6 @@ public class IceAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
     private String[] extractAndDecodeHeader(String header, HttpServletRequest request) throws IOException {
         //header = Basic aWNlOmljZXNlY3JldA==
         byte[] base64Token = header.substring(6).getBytes("UTF-8");
-
         byte[] decoded;
         try {
             decoded = Base64.decode(base64Token);
