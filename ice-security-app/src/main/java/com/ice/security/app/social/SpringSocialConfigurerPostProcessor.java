@@ -1,7 +1,7 @@
 package com.ice.security.app.social;
 
 import com.ice.security.core.properties.SecurityConstants;
-import com.ice.security.core.social.IceSpringSocialConfigurer;
+import com.ice.security.core.social.support.IceSpringSocialConfigurer;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

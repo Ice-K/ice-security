@@ -1,6 +1,8 @@
 package com.ice.security.core.social;
 
 import com.ice.security.core.properties.SecurityProperties;
+import com.ice.security.core.social.support.IceSpringSocialConfigurer;
+import com.ice.security.core.social.support.SocialAuthenticationFilterPostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -8,7 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * Description：提供手机身份验证
+ * Description：短信登录验证逻辑
+ *
+ * 由于短信验证码的验证在过滤器里已完成，这里直接读取用户信息即可。
  * Cteated by wangpeng
  * 2018/3/13 18:01
  */
@@ -17,6 +19,12 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
     private UserDetailsService userDetailsService;
 
 
+    /**
+     * (non-Javadoc)
+     *
+     * @see org.springframework.security.authentication.AuthenticationProvider#
+     * authenticate(org.springframework.security.core.Authentication)
+     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
@@ -33,6 +41,12 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
         return authenticationResult;
     }
 
+    /**
+     * (non-Javadoc)
+     *
+     * @see org.springframework.security.authentication.AuthenticationProvider#
+     * supports(java.lang.Class)
+     */
     @Override
     public boolean supports(Class<?> aClass) {
         return SmsCodeAuthenticationToken.class.isAssignableFrom(aClass);

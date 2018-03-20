@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Description：自定义手机身份验证过滤器
+ * Description：短信登录过滤器
  * Cteated by wangpeng
  * 2018/3/13 17:47
  */

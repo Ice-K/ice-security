@@ -1,4 +1,4 @@
-package com.ice.security.core.social;
+package com.ice.security.core.social.view;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.CollectionUtils;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Description：
+ * Description：社交账号绑定状态视图
  * Cteated by wangpeng
  * 2018/3/16 11:06
  */

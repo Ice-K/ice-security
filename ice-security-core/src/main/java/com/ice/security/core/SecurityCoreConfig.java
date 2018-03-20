@@ -15,14 +15,4 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableConfigurationProperties(SecurityProperties.class)
 public class SecurityCoreConfig {
 
-    /**
-     * 自定义密码加密及校验
-     * @return passwordEncoder密码校验器
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-
-        return new MD5PasswordEncoder();//自定义MD5加密
-        //return new BCryptPasswordEncoder();//security自带加密
-    }
 }

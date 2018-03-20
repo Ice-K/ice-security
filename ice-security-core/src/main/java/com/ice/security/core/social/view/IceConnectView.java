@@ -1,4 +1,4 @@
-package com.ice.security.core.social;
+package com.ice.security.core.social.view;
 
 import org.springframework.web.servlet.view.AbstractView;
 
@@ -12,10 +12,19 @@ import java.util.Map;
  * 2018/3/16 11:02
  */
 public class IceConnectView extends AbstractView {
+
+    /**
+     * (non-Javadoc)
+     *
+     * @see
+     * org.springframework.web.servlet.view.AbstractView#renderMergedOutputModel
+     * (java.util.Map, javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void renderMergedOutputModel(Map<String, Object> map, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         httpServletResponse.setContentType("text/html;charset=UTF-8");
-        if (map.get("connection") == null) {
+        if (map.get("connections") == null) {
             httpServletResponse.getWriter().write("<h3>解绑成功</h3>");
         } else {
             httpServletResponse.getWriter().write("<h3>绑定成功</h3>");

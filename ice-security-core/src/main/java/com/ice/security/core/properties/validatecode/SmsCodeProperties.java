@@ -10,10 +10,10 @@ public class SmsCodeProperties {
     /** 验证码长度. */
     private int length = 6;
 
-    /** 验证码有效期 */
+    /** 验证码有效期 默认3分钟 */
     private int expireIn = 180;
 
-    /** 需要验证的url 格式 /xxxx,/xxxx. */
+    /** 需要验证的url 多个url用逗号隔开，ant pattern. */
     private String urls;
 
     /** 是否启用登录验证码. */

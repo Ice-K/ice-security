@@ -7,29 +7,52 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import java.util.Collection;
 
 /**
- * Description：
+ * Description：短信登录验证信息封装类
  * Cteated by wangpeng
  * 2018/3/13 17:37
  */
 public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
+    // ~ Instance fields
+    // ================================================================================================
     /**
      * 存放认证信息
      */
     private final Object principal;
 
+    // ~ Constructors
+    // ===================================================================================================
+
+    /**
+     * This constructor can be safely used by any code that wishes to create a
+     * <code>UsernamePasswordAuthenticationToken</code>, as the {@link #isAuthenticated()}
+     * will return <code>false</code>.
+     *
+     */
     public SmsCodeAuthenticationToken(String mobile) {
         super(null);
         this.principal = mobile;
         setAuthenticated(false);
     }
 
+    /**
+     * This constructor should only be used by <code>AuthenticationManager</code> or
+     * <code>AuthenticationProvider</code> implementations that are satisfied with
+     * producing a trusted (i.e. {@link #isAuthenticated()} = <code>true</code>)
+     * authentication token.
+     *
+     * @param principal
+     * @param authorities
+     */
     public SmsCodeAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
-        super.setAuthenticated(true);
+        super.setAuthenticated(true);// must use super, as we override
     }
+
+    // ~ Methods
+    // ========================================================================================================
 
     public Object getCredentials() {
         return null;

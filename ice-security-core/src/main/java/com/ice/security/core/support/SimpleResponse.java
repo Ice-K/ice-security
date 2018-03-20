@@ -1,23 +1,23 @@
 package com.ice.security.core.support;
 
 /**
- * Description: 封装BrowserSecurityController返回的数据
+ * Description: 简单响应的封装类
  * Cteated by wangpeng
  * 2018/3/10 21:35
  */
 public class SimpleResponse {
 
-    private Object content;
-
-    public SimpleResponse(Object content) {
+    public SimpleResponse(Object content){
         this.content = content;
     }
 
-    public Object getObject() {
+    private Object content;
+
+    public Object getContent() {
         return content;
     }
 
-    public void setObject(Object content) {
+    public void setContent(Object content) {
         this.content = content;
     }
 }

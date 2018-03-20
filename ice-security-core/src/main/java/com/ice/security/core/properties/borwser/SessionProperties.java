@@ -3,7 +3,7 @@ package com.ice.security.core.properties.borwser;
 import com.ice.security.core.properties.SecurityConstants;
 
 /**
- * Description：session属性配置
+ * Description：session管理相关配置项
  * Cteated by wangpeng
  * 2018/3/16 18:16
  */

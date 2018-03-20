@@ -1,4 +1,4 @@
-package com.ice.security.core.social;
+package com.ice.security.core.social.support;
 
 import org.springframework.social.security.SocialAuthenticationFilter;
 

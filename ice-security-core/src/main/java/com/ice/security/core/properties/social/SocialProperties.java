@@ -5,7 +5,7 @@ import com.ice.security.core.properties.social.wechat.WeChatProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
- * Description: 第三方授权登录配置
+ * Description: 社交登录配置项
  * Cteated by wangpeng
  * 2018/3/15 2:16
  */

@@ -9,10 +9,16 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
  */
 public class OAuth2Properties {
 
+    /**
+     * 使用jwt时为token签名的秘钥
+     */
     private String jwtSigningKey = "ice";
 
+    /**
+     * 客户端配置
+     */
     @NestedConfigurationProperty
-    private OAuth2ClientProperties[] clients = new OAuth2ClientProperties[]{};
+    private OAuth2ClientProperties[] clients = {};
 
     public OAuth2ClientProperties[] getClients() {
         return clients;

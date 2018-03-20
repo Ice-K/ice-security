@@ -1,10 +1,10 @@
-package com.ice.security.core.social;
+package com.ice.security.core.social.support;
 
 import org.springframework.social.security.SocialAuthenticationFilter;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
- * Description：自定义社交登录Url
+ * Description：继承默认的社交登录配置，加入自定义的后处理逻辑
  * Cteated by wangpeng
  * 2018/3/15 10:47
  */

@@ -21,6 +21,13 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    /**
+     * (non-Javadoc)
+     *
+     * @see
+     * org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter
+     * #createConnectionFactory()
+     */
     @Override
     protected ConnectionFactory<?> createConnectionFactory() {
         QQProperties qqConfig = securityProperties.getSocial().getQq();

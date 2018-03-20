@@ -4,7 +4,7 @@ package com.ice.security.core.properties.social.wechat;
 import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
- * Description：微信属性配置
+ * Description：微信登录配置
  * Cteated by wangpeng
  * 2018/3/16 10:00
  */

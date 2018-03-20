@@ -1,19 +1,19 @@
 package com.ice.security.core.properties.OAuth2;
 
 /**
- * Description：配置OAuth2协议支持的应用
+ * Description：认证服务器注册的第三方应用配置项
  * Cteated by wangpeng
  * 2018/3/19 14:18
  */
 public class OAuth2ClientProperties {
 
-    /**应用的id.*/
+    /**第三方应用appId.*/
     private String clientId;
 
-    /**应用的id.*/
+    /**第三方应用appSecret.*/
     private String clientSecret;
 
-    /**token有效时间，单位秒.*/
+    /**针对此应用发出的token的有效时间，单位秒.*/
     private int accessTokenValiditySeconds = 7200;
 
     public String getClientId() {

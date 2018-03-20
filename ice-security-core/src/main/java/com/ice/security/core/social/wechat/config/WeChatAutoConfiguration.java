@@ -2,7 +2,7 @@ package com.ice.security.core.social.wechat.config;
 
 import com.ice.security.core.properties.SecurityProperties;
 import com.ice.security.core.properties.social.wechat.WeChatProperties;
-import com.ice.security.core.social.IceConnectView;
+import com.ice.security.core.social.view.IceConnectView;
 import com.ice.security.core.social.wechat.connect.WeChatConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

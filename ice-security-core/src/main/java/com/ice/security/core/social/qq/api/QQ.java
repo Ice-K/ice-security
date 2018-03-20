@@ -1,7 +1,5 @@
 package com.ice.security.core.social.qq.api;
 
-import java.io.IOException;
-
 /**
  * Description:
  * Cteated by wangpeng

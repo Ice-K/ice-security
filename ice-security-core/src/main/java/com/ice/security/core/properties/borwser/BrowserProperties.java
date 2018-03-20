@@ -5,7 +5,7 @@ import com.ice.security.core.properties.SecurityConstants;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
- * Description:browserSecurity属性配置文件
+ * Description:浏览器环境配置项
  * Cteated by wangpeng
  * 2018/3/10 21:59
  */
@@ -24,10 +24,10 @@ public class BrowserProperties {
     /** 标准退出页. */
     private String logoutPage;
 
-    /** 认证结果返回JSON或者跳转REDIRECT. */
+    /** 登录响应的方式，默认是json. */
     private LoginResponseType loginResponseType = LoginResponseType.JSON;
 
-    /** 记住我token存储时间设置(单位秒),默认一星期. */
+    /** '记住我'时间设置(单位秒),默认一星期. */
     private int rememberMeSeconds = 60*60*24*7;
 
     /**

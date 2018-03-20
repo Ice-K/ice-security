@@ -12,7 +12,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import java.util.Map;
 
 /**
- * Description：
+ * Description：抽象的图片验证码处理器
  * Cteated by wangpeng
  * 2018/3/13 9:32
  */
@@ -24,7 +24,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * 将实现的类名作为key
      */
     @Autowired
-    private Map<String, ValidateCodeGenerator> validatecodeGennerators;
+    private Map<String, ValidateCodeGenerator> validateCodeGennerators;
 
     @Autowired
     private ValidateCodeRepository validateCodeRepository;
@@ -54,7 +54,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     private C generate(ServletWebRequest request) {
         String type = getValidateCodeType(request).toString().toLowerCase();
         String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
-        ValidateCodeGenerator validateCodeGenerator = validatecodeGennerators.get(generatorName);
+        ValidateCodeGenerator validateCodeGenerator = validateCodeGennerators.get(generatorName);
 
         if (validateCodeGenerator == null) {
             throw new ValidateCodeException("验证码生成器 <" + generatorName + "> 不存在");
