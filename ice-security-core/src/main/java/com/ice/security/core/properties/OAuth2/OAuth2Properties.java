@@ -15,6 +15,11 @@ public class OAuth2Properties {
     private String jwtSigningKey = "ice";
 
     /**
+     * 使用redis存储token的配置，只有在ice.security.oauth2.tokenStore配置为redis时生效
+     */
+    private String tokenStore;
+
+    /**
      * 客户端配置
      */
     @NestedConfigurationProperty
@@ -34,5 +39,13 @@ public class OAuth2Properties {
 
     public void setJwtSigningKey(String jwtSigningKey) {
         this.jwtSigningKey = jwtSigningKey;
+    }
+
+    public String getTokenStore() {
+        return tokenStore;
+    }
+
+    public void setTokenStore(String tokenStore) {
+        this.tokenStore = tokenStore;
     }
 }

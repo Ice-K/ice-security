@@ -24,7 +24,7 @@ public class TokenStoreConfig {
 
 
     /**
-     * 使用redis存储token的配置，只有在imooc.security.oauth2.tokenStore配置为redis时生效
+     * 使用redis存储token的配置，只有在ice.security.oauth2.tokenStore配置为redis时生效
      * @return
      */
     @Configuration
