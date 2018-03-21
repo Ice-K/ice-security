@@ -10,7 +10,7 @@ public class SocialUserInfo {
     private String providerId;
     private String providerUserId;
     private String nickname;
-    private String headimage;
+    private String headImage;
 
     public String getProviderId() {
         return providerId;
@@ -36,11 +36,11 @@ public class SocialUserInfo {
         this.nickname = nickname;
     }
 
-    public String getHeadimage() {
-        return headimage;
+    public String getHeadImage() {
+        return headImage;
     }
 
-    public void setHeadimage(String headimage) {
-        this.headimage = headimage;
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
     }
 }

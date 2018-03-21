@@ -2,15 +2,10 @@ package com.ice.web.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ice.dto.User;
-import com.ice.security.app.social.AppSignUpUtils;
 import com.ice.security.core.properties.SecurityProperties;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -21,7 +16,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +32,8 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
-    @Autowired
-    private AppSignUpUtils appSignUpUtils;
+   /* @Autowired
+    private AppSignUpUtils appSignUpUtils;*/
 
 
     @Autowired
@@ -51,8 +45,8 @@ public class UserController {
         //不管是注册用户还是绑定用户都会拿到用户的唯一标识
         String userId = user.getUsername();
 
-        //providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-        appSignUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
+        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+        //appSignUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
     }
 
     /*@GetMapping("/me")
@@ -64,7 +58,7 @@ public class UserController {
 
     @GetMapping("/me")
     public Object getCurrentUser(@AuthenticationPrincipal UserDetails user, HttpServletRequest request) throws Exception {
-        String header = request.getHeader("Authorization");
+        /*String header = request.getHeader("Authorization");
         String token = StringUtils.substringAfter(header, "bearer ");
 
         Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2().getJwtSigningKey().getBytes("UTF-8"))
@@ -72,7 +66,7 @@ public class UserController {
 
         String company = (String) claims.get("company");
 
-        System.out.println(company);
+        System.out.println(company);*/
         return user;
     }
 

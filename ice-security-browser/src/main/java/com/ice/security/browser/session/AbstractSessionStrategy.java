@@ -31,7 +31,7 @@ public class AbstractSessionStrategy {
     /**
      * 系统配置信息
      */
-    private SecurityProperties securityPropertie;
+    private SecurityProperties securityProperties;
     /**
      * 重定向策略
      */
@@ -47,11 +47,11 @@ public class AbstractSessionStrategy {
      * @param securityProperties 系统配置文件
      */
     public AbstractSessionStrategy(SecurityProperties securityProperties) {
-        String invalidSessionUrl = securityPropertie.getBrowser().getSession().getSessionInvalidUrl();
+        String invalidSessionUrl = securityProperties.getBrowser().getSession().getSessionInvalidUrl();
         Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or with 'http(s)'");
         Assert.isTrue(StringUtils.endsWithIgnoreCase(invalidSessionUrl, ".html"), "url must end with '.html");
         this.destinationUrl = invalidSessionUrl;
-        this.securityPropertie = securityProperties;
+        this.securityProperties = securityProperties;
     }
 
     /**
@@ -73,8 +73,8 @@ public class AbstractSessionStrategy {
         String targetUrl;
 
         if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
-            if (StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getLoginPage())
-                    || StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getLogoutPage())) {
+            if (StringUtils.equals(sourceUrl, securityProperties.getBrowser().getLoginPage())
+                    || StringUtils.equals(sourceUrl, securityProperties.getBrowser().getLogoutPage())) {
                 targetUrl = sourceUrl;
             } else {
                 targetUrl = destinationUrl;

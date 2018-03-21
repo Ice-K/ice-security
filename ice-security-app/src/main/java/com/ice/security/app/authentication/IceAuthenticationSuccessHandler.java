@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Description: 认证成功以后的处理
+ * Description: APP环境下认证成功处理器
  *
  * authentication接口：作用：封装认证信息，
  * 包括：
@@ -108,11 +108,11 @@ public class IceAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
         }
 
         String token = new String(decoded, "UTF-8");
-        int delim = token.indexOf(":");
-        if (delim == -1) {
+        int delia = token.indexOf(":");
+        if (delia == -1) {
             throw new BadCredentialsException("Invalid basic authentication token");
         } else {
-            return new String[]{token.substring(0, delim), token.substring(delim + 1)};
+            return new String[]{token.substring(0, delia), token.substring(delia + 1)};
         }
     }
 }

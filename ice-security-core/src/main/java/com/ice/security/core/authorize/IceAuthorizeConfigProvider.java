@@ -30,7 +30,9 @@ public class IceAuthorizeConfigProvider implements AuthorizeConfigProvider {
                 SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                 securityProperties.getBrowser().getLoginPage(),
                 securityProperties.getBrowser().getSignUpPage(),
-                securityProperties.getBrowser().getSession().getSessionInvalidUrl()).permitAll();
+                securityProperties.getBrowser().getSession().getSessionInvalidUrl()
+        ).permitAll();
+        //如果配置了退出页面
         if (StringUtils.isNotBlank(securityProperties.getBrowser().getLogoutPage())) {
             config.antMatchers(securityProperties.getBrowser().getLogoutPage()).permitAll();
         }

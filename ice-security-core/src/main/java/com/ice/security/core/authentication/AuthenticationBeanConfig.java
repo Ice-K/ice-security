@@ -20,6 +20,7 @@ public class AuthenticationBeanConfig {
     /**
      * 默认密码处理器
      */
+    @Bean
     @ConditionalOnMissingBean(PasswordEncoder.class)
     public PasswordEncoder passwordEncoder() {
         return new MD5PasswordEncoder();

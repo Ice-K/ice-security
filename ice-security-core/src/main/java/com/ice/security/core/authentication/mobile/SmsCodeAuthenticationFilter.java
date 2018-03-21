@@ -44,7 +44,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
             SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken(mobile);
 
             // Allow subclasses to set the "details" property
-            this.setDetails(request, authRequest);
+            setDetails(request, authRequest);
             return this.getAuthenticationManager().authenticate(authRequest);
         }
     }
